@@ -1,12 +1,10 @@
 
 import styled from "styled-components";
 
-export default function FormUsers(){
+export default function FormUsers(props){
     return(
         <FormContainer autoComplete="off">
-            <input type="email" placeholder="E-mail"></input>
-            <input type="password" placeholder="Senha"></input>
-            <button>Entrar</button>
+            {props.children}
         </FormContainer>
     ); 
 };
