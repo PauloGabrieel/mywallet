@@ -17,4 +17,10 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    h1{
+        font: 400 32px 'Saira Stencil One', cursive;
+        color: #FFFFFF;
+    }
+
 `
