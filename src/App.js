@@ -1,12 +1,19 @@
 import styled from "styled-components";
-
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import "./assets/css/reset.css";
 import Signin from "./componets/Signin";
+import Signup from "./componets/Signup";
 export default function App(){
     return(
-        <Container>
-            <Signin></Signin>
-        </Container>
+        <BrowserRouter>
+            <Container>
+                <Routes>
+                    <Route path="/" element={<Signin />}></Route>    
+                    <Route path="/signup" element={<Signup />}></Route>
+                </Routes>
+            </Container>
+        </BrowserRouter>
+ 
     );
 };
 
@@ -15,5 +22,5 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     justify-content: center;
-    
+
 `

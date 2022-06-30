@@ -34,6 +34,7 @@ const FormContainer = styled.form`
         border: none;
         border-radius: 5px;
         font: 700 20px 'Raleway', sans-serif; 
+        cursor: pointer;
     }
 
 `
