@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -8,32 +9,43 @@ import FormUsers from "../shared/FormUsers.js"
 
 dotenv.config();
 export default function Signin(){
-
+    const [loader, setLoader] = useState(false);
     const [userData, setUserData] = useState({
         email:"",
         password: ""
     });
-    function handleForm(data){
+    console.log(loader);
+    
+    
+
+    function handleForm(e){
         setUserData({
             ...userData,
-            [data.target.name]: data.target.value
+            [e.target.name]: e.target.value
         });
     };
-    function login(){
-        
-        const promise = axios.post()
-        
+    function login(e){
+        e.preventDefault();
+        const promise = axios.post("localhost:5000/signin",userData);
+        promise.then(response =>{
+            console.log(response);
+        }).catch(error =>{
+            console.log(error.response);
+        })
     }
     return(
         <Container>
             <h1>Mywallet</h1>
-            <FormUsers >
+            <FormUsers onSubmit={login}>
                 <input 
                 onChange={handleForm} value={userData.email} 
                 name="email" type="email" placeholder="E-mail"></input>
+                
                 <input onChange={handleForm} value={userData.password} 
                 name="password" type="password" placeholder="Senha"></input>
-                <button>Entrar</button>
+                
+                {loader ? <ContainerLoader><div></div></ContainerLoader>:<button onClick={login}>Entrar</button>}
+            
             </FormUsers>
             <Link to="/signup">Primeira vez? Cadastre-se!</Link>
             
@@ -61,4 +73,24 @@ const Container = styled.div`
     }
 
 `
+const ContainerLoader = styled.div`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 46px;
+        width: 100%;
+        background-color: #A328D6;
+        border-radius: 5px;
 
+    div{
+        width: 30px;
+        height: 30px;    
+        border: 2px solid rgba(0,0,0,.1);
+        border-left-color:#690096;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    };
+    @keyframes spin{
+        to{ transform: rotate(360deg);}
+    }
+`

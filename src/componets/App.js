@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import "./assets/css/reset.css";
-import Signin from "./componets/Signin";
-import Signup from "./componets/Signup";
+import "../assets/css/reset.css";
+import Signin from "./Signin";
+import Signup from "./Signup";
 export default function App(){
     return(
         <BrowserRouter>
