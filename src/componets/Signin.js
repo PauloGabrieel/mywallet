@@ -26,11 +26,11 @@ export default function Signin(){
     };
     function login(e){
         e.preventDefault();
-        const promise = axios.post("localhost:5000/signin",userData);
+        const promise = axios.post("http://localhost:5000/signin",userData);
         promise.then(response =>{
             console.log(response);
         }).catch(error =>{
-            console.log(error.response);
+            console.log(error);
         })
     }
     return(

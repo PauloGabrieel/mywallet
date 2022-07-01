@@ -21,7 +21,7 @@ export default function Signup(){
     }
     function sendUserData(e){
         e.preventDefault();
-        const promise = axios.post("localhost:5000/signup", userData);
+        const promise = axios.post("http://localhost:5000/signup", userData);
         promise.then(response =>{
             console.log(response);
         }).catch(error =>{
