@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios"
 
 import FormUsers from "../shared/FormUsers"
 export default function Signup(){
+    let navigate = useNavigate();
     const [userData, setUserData] = useState({
         name:"",
         email:"",
@@ -12,6 +13,7 @@ export default function Signup(){
         confirmPassword:""
     });
     const [loader, setLoader] = useState(false);
+    
     function handleForm(e){
         setUserData({
             ...userData,
@@ -19,24 +21,33 @@ export default function Signup(){
         });
        
     }
-    function sendUserData(e){
+    function signupForm(e){
         e.preventDefault();
+       
         const promise = axios.post("http://localhost:5000/signup", userData);
+        
         promise.then(response =>{
             console.log(response);
+           
+            if(response.status== 201){
+                alert(response.data)
+                navigate("/");
+                
+            }
+            
         }).catch(error =>{
             console.log(error.response);
-        })
-    }
+        });
+    };
     return(
         <Container>
             <h1>Mywallet</h1>
-            <FormUsers onSubmit={sendUserData}>
+            <FormUsers onSubmit={signupForm}>
                 <input onChange={handleForm} name="name" value={userData.name} type="text" placeholder="Nome"></input>
                 <input onChange={handleForm} name="email" value={userData.email} type="email" placeholder="E-mail"></input>
                 <input onChange={handleForm} name="password" value={userData.password} type="password" placeholder="Senha"></input>
-                <input onChange={handleForm} name="confirmPassoword" value={userData.confirmPassword} type="password" placeholder="Confirme a senha"></input>
-                {loader?<ContainerLoader><div></div></ContainerLoader>:<button onClick={sendUserData}>Cadastrar</button>}
+                <input onChange={handleForm} name="confirmPassword" value={userData.confirmPassword} type="password" placeholder="Confirme a senha"></input>
+                {loader?<ContainerLoader><div></div></ContainerLoader>:<button onClick={signupForm}>Cadastrar</button>}
             </FormUsers>
             <Link to="/">Já tem uma conta? Entre agora!</Link>
         </Container>

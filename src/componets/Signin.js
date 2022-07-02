@@ -1,22 +1,22 @@
 
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
+
 
 import FormUsers from "../shared/FormUsers.js"
 
-dotenv.config();
+const URL = "http://localhost:5000/signin";
+
 export default function Signin(){
     const [loader, setLoader] = useState(false);
     const [userData, setUserData] = useState({
         email:"",
         password: ""
     });
-    console.log(loader);
     
-    
+    let navigate = useNavigate();
 
     function handleForm(e){
         setUserData({
@@ -26,26 +26,26 @@ export default function Signin(){
     };
     function login(e){
         e.preventDefault();
-        const promise = axios.post("http://localhost:5000/signin",userData);
-        promise.then(response =>{
-            console.log(response);
-        }).catch(error =>{
-            console.log(error);
-        })
+        
+         axios.post(URL, userData).then(function(res) {
+            localStorage.setItem("token", res.data);
+            navigate("/mywallet");
+        }).catch(error => {
+            const {data, status} = error.response;
+            if(status == 422){
+                data.map(item => alert(item.message));
+            }else if(status == 404){
+                alert(data);
+            }
+        });
     }
     return(
         <Container>
             <h1>Mywallet</h1>
             <FormUsers onSubmit={login}>
-                <input 
-                onChange={handleForm} value={userData.email} 
-                name="email" type="email" placeholder="E-mail"></input>
-                
-                <input onChange={handleForm} value={userData.password} 
-                name="password" type="password" placeholder="Senha"></input>
-                
+                <input onChange={handleForm} value={userData.email} name="email" type="email" placeholder="E-mail"></input>
+                <input onChange={handleForm} value={userData.password} name="password" type="password" placeholder="Senha"></input>
                 {loader ? <ContainerLoader><div></div></ContainerLoader>:<button onClick={login}>Entrar</button>}
-            
             </FormUsers>
             <Link to="/signup">Primeira vez? Cadastre-se!</Link>
             

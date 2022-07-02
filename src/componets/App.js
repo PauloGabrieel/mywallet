@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import "../assets/css/reset.css";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import Mywallet from "./MyWallet"; 
 export default function App(){
     return(
         <BrowserRouter>
@@ -10,6 +11,7 @@ export default function App(){
                 <Routes>
                     <Route path="/" element={<Signin />}></Route>    
                     <Route path="/signup" element={<Signup />}></Route>
+                    <Route path="/mywallet" element={<Mywallet />}></Route>
                 </Routes>
             </Container>
         </BrowserRouter>
