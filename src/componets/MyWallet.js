@@ -30,7 +30,7 @@ export default function Mywallet(){
         })
     },[]);
     function logout(){
-        const promise = axios.delete("http://localhost:5000/mywallet", config);
+        const promise = axios.delete("https://driven-myywallet.herokuapp.com/mywallet", config);
 
         promise.then(response => {
             console.log(response.data);
