@@ -1,20 +1,43 @@
 import styled from "styled-components";
+import { useEffect,useState } from "react";
+import axios from "axios";
 import exit from "../assets/image/exit.svg";
 import minus from "../assets/image/minus.svg";
 import plus from  "../assets/image/plus.svg";
+
 export default function Mywallet(){
+    
+    const [userData, setUserData] = useState([]);
+    useEffect(()=>{
+        const token = localStorage.getItem("token")
+        const config = {
+            headers:{
+                "Authorization": `Bearer ${token}` 
+            }
+        }
+        
+        const promise = axios.get("http://localhost:5000/mywallet", config);
+        promise.then(response =>{
+            console.log(response);
+            setUserData(...userData, response.data);
+            ;
+        }).catch(error =>{
+            console.error("deu ruim");
+        })
+    },[])
+    
     return(
         <Container>
             <Header>
-                <h1>Ola, fulano </h1>
-                <img src={exit}/>
+            <h1>Ola, {} </h1>
+                <img src={exit} alt=""/>
             </Header>
             <Wallet>
                 <span>Não há registros de entrada ou saída</span>
             </Wallet>
             <Buttons>
-                <button><img src={plus} /> <span>Nova entrada</span></button>
-                <button><img src={minus} /> <span>Nova saída</span></button>
+                <button><img src={plus} alt="" /> <span>Nova entrada</span></button>
+                <button><img src={minus} alt=""/> <span>Nova saída</span></button>
             </Buttons>
         </Container>
     )

@@ -32,9 +32,9 @@ export default function Signin(){
             navigate("/mywallet");
         }).catch(error => {
             const {data, status} = error.response;
-            if(status == 422){
+            if(status === 422){
                 data.map(item => alert(item.message));
-            }else if(status == 404){
+            }else if(status === 404){
                 alert(data);
             }
         });

@@ -29,7 +29,7 @@ export default function Signup(){
         promise.then(response =>{
             console.log(response);
            
-            if(response.status== 201){
+            if(response.status === 201){
                 alert(response.data)
                 navigate("/");
                 
