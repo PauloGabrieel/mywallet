@@ -20,7 +20,7 @@ export default function Mywallet(){
 
     useEffect(()=>{
         
-        const promise = axios.get("http://localhost:5000/mywallet", config);
+        const promise = axios.get("https://driven-myywallet.herokuapp.com/mywallet", config);
         promise.then(response =>{
             console.log(response.data);
             setUserData(...userData, response.data);

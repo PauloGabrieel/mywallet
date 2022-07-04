@@ -31,7 +31,7 @@ export default function Expense(){
         };
 
         
-        const promise = axios.post("http://localhost:5000/expense", userData, config);
+        const promise = axios.post("https://driven-myywallet.herokuapp.com/expense", userData, config);
         promise.then(response => {
             console.log(response.data);
             navigate("/mywallet");

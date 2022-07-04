@@ -24,7 +24,7 @@ export default function Signup(){
     function signupForm(e){
         e.preventDefault();
        
-        const promise = axios.post("http://localhost:5000/signup", userData);
+        const promise = axios.post("https://driven-myywallet.herokuapp.com/signup", userData);
         
         promise.then(response =>{
             console.log(response);
