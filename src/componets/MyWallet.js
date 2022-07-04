@@ -70,8 +70,29 @@ export default function Mywallet(){
                     )
         }))
         
-        }
-    }
+        };
+    };
+    function renderTotal(){
+        if(userData.length === 0){
+            return 
+        }else if(userData.total.length !== 0){
+            let positive = userData.total > 0;
+            let total = userData.total;
+            if(positive){
+                positive = "#03AC00";
+                
+            }else{
+                positive = "#C70000";
+                total = (userData.total * -1).toFixed(2); ;
+            }
+            return(
+                <div style={{width:"100%",display:"flex",justifyContent:"space-between"}}>
+                    <div style={{fontSize:"17px"}}>Total</div>
+                    <div style={{color:positive}} >{total}</div>
+                </div>
+        )};
+    };
+    const total = renderTotal();
     const expense = renderExpense();
     const income = renderIncome();
     return(
@@ -81,8 +102,13 @@ export default function Mywallet(){
                 <img onClick={logout} src={exit} alt=""/>
             </Header>
             <Wallet>
-                {expense}
-                {income}
+                <div>
+                    {expense}
+                    {income}
+                </div>
+                
+                {total}
+                
             </Wallet>
             <Buttons>
                 <Link to="/income">
@@ -122,14 +148,17 @@ const Header = styled.div`
     };
 ` 
 const Wallet = styled.ul`
-
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     height: 446px;
     width: 100%;
     background-color: #FFFFFF;
     margin-top: 50px;
     border-radius: 5px;
     padding: 24px 14px;
-    
+    font-family: 'Raleway', sans-serif;
+   
     li{
         margin-bottom: 10px;
         width:100%; 
@@ -148,7 +177,7 @@ const Wallet = styled.ul`
       
         };
     };
- 
+
 `
 const Buttons = styled.div`
     margin-top: 14px;
@@ -174,4 +203,7 @@ const Buttons = styled.div`
         font: 700 17px 'Raleway', sans-serif; 
         cursor: pointer;
     };
+`
+const footer = styled.div`
+
 `
